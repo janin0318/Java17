@@ -7,4 +7,10 @@
         from shohin;
     </select>
 
+    <select id="findByShohinMei" resultType="com.example.sandbox.dto.Shohin">
+        select *
+        from shohin
+        where shohin_mei = #{shohinMei};
+    </select>
+
 </mapper>

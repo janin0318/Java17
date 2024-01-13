@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ShohinMapper {
   List<Shohin> findAll();
+  
+  Shohin findByShohinMei(String shohinMei);
 }
