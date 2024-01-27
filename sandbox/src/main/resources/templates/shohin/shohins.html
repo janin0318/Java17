@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>商品分類</th>
+        <th>販売単価</th>
+        <th>仕入単価</th>
+    </tr>
+    <tr th:each="shohin:${shohinList}">
+        <td><span th:text="${shohin.shohinId}">商品ID</span></td>
+        <td><span th:text="${shohin.shohinMei}">商品名</span></td>
+        <td><span th:text="${shohin.shohinBunrui}">商品分類</span></td>
+        <td><span th:text="${shohin.hanbaiTanka}">販売単価</span></td>
+        <td><span th:text="${shohin.shiireTanka}">仕入単価</span></td>
+    </tr>
+</table>
+</body>
+</html>
