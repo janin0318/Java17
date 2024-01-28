@@ -11,5 +11,7 @@ public interface ShohinMapper {
   
   Shohin findByShohinMei(String shohinMei);
   
+  Shohin findByShohinId(String shohinId);
+  
   Integer insertShohin(Shohin shohin);
 }
