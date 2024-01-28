@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録</title>
+</head>
+<body>
+<h1>新規登録</h1>
+<form th:action="@{/shohins/create}" method="post" th:object="${shohin}">
+    <table>
+        <tr>
+            <th>商品名</th>
+            <td>
+                <input type="text" th:field="*{shohinMei}"/>
+                <div th:errors="*{shohinMei}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>商品分類</th>
+            <td>
+                <input type="text" th:field="*{shohinBunrui}"/>
+                <div th:errors="*{shohinBunrui}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>販売単価</th>
+            <td>
+                <input type="text" th:field="*{hanbaiTanka}"/>
+                <div th:errors="*{hanbaiTanka}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>仕入単価</th>
+            <td>
+                <input type="text" th:field="*{shiireTanka}"/>
+                <div th:errors="*{shiireTanka}"></div>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="商品を登録" />
+</form>
+</body>
+</html>

@@ -10,4 +10,6 @@ public interface ShohinMapper {
   List<Shohin> findAll();
   
   Shohin findByShohinMei(String shohinMei);
+  
+  Integer insertShohin(Shohin shohin);
 }

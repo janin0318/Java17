@@ -28,4 +28,9 @@ public class ShohinServiceImpl implements ShohinService {
     List<Shohin> shohinList = shohinMapper.findAll();
     return shohinList.stream().map(Shohin::getShohinMei).toList();
   }
+  
+  @Override
+  public void registerShohin(Shohin shohin) {
+    shohinMapper.insertShohin(shohin);
+  }
 }
