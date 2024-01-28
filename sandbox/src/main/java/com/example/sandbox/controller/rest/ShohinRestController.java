@@ -1,9 +1,10 @@
 package com.example.sandbox.controller.rest;
 
+import com.example.sandbox.dto.Shohin;
 import com.example.sandbox.service.ShohinService;
-import jakarta.websocket.server.PathParam;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rest")
@@ -16,22 +17,22 @@ public class ShohinRestController {
   }
 
   @GetMapping("/shohins")
-  public String getShohin() {
-    return shohinService.getAllShohin().toString();
+  public List<Shohin> getShohin() {
+    return shohinService.getAllShohin();
   }
   
   @GetMapping("/shohinmei")
-  public String getAllShohinMei() {
-    return shohinService.getAllShohinMei().toString();
+  public List<String> getAllShohinMei() {
+    return shohinService.getAllShohinMei();
   }
   
   @GetMapping("/shohin/{shohinId}")
-  public String getShohinDetail(@PathVariable String shohinId) {
-    return shohinService.getShohinDetail(shohinId).toString();
+  public Shohin getShohinDetail(@PathVariable String shohinId) {
+    return shohinService.getShohinDetail(shohinId);
   }
   
   @GetMapping("/shohin")
-  public String getShohinDetailByParam(@RequestParam String shohinId) {
-    return shohinService.getShohinDetail(shohinId).toString();
+  public Shohin getShohinDetailByParam(@RequestParam String shohinId) {
+    return shohinService.getShohinDetail(shohinId);
   }
 }
