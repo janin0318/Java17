@@ -1,7 +1,7 @@
 package com.example.sandbox.service.impl;
 
 import com.example.sandbox.dto.Shohin;
-import com.example.sandbox.repository.ShohinMapper;
+import com.example.sandbox.mapper.ShohinMapper;
 import com.example.sandbox.service.ShohinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

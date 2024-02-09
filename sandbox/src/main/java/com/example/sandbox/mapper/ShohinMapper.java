@@ -1,4 +1,4 @@
-package com.example.sandbox.repository;
+package com.example.sandbox.mapper;
 
 import com.example.sandbox.dto.Shohin;
 import org.apache.ibatis.annotations.Mapper;

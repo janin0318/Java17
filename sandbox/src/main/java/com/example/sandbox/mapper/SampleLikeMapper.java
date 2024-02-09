@@ -1,4 +1,4 @@
-package com.example.sandbox.repository;
+package com.example.sandbox.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
