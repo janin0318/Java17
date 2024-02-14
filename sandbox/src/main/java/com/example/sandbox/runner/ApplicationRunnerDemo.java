@@ -31,5 +31,7 @@ public class ApplicationRunnerDemo implements ApplicationRunner {
     log.info(shohinList.toString());
     List<String> shohinMei = shohinService.getAllShohinMei();
     log.info(shohinMei.toString());
+    Shohin shohin = shohinService.getShohinDetail("0001");
+    log.info(shohin.toString());
   }
 }
