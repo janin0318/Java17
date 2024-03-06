@@ -7,6 +7,6 @@ package org.example.design.iterator;
  */
 public interface Aggregate {
 
-  public Iterator iterator();
+  Iterator iterator();
 
 }

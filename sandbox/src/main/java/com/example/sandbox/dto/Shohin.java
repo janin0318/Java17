@@ -3,12 +3,10 @@ package com.example.sandbox.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -22,14 +20,14 @@ public class Shohin {
   
   @NotBlank
   private String shohinBunrui;
-  
+
   @NotNull
   @Max(Integer.MAX_VALUE)
   private Integer hanbaiTanka;
-  
+
   @NotNull
   @Max(Integer.MAX_VALUE)
   private Integer shiireTanka;
-  
+
   private Timestamp torokubi;
 }
