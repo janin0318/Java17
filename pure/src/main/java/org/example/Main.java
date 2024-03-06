@@ -1,14 +1,15 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Currency;
+import java.util.Locale;
+import org.example.dto.Money;
 
 public class Main {
 
+
   public static void main(String[] args) {
-    Map<String, String> map = new HashMap<>();
-    map.put("id", "1");
-    map.put("name", "tanaka");
-    System.out.println(map);
+    Currency yen = Currency.getInstance(Locale.JAPAN);
+    Money money = new Money(100, yen);
+    System.out.println(String.valueOf(money.getAmount()) + money.getCurrency());
   }
 }
