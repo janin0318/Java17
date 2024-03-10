@@ -1,9 +1,13 @@
 version: '3'
 services:
   db:
-    build: .
-    ports:
-      - 5430:5432
+    image: postgres
+    restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
