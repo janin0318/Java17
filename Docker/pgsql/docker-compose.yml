@@ -2,12 +2,10 @@ version: '3'
 services:
   db:
     image: postgres
-    restart: always
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mysecretpassword
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-volumes:
-  pgdata:
+      POSTGRES_DB: demodb
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5433:5432"
+    container_name: postgres_container
