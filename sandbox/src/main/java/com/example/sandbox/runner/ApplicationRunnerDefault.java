@@ -2,26 +2,23 @@ package com.example.sandbox.runner;
 
 import com.example.sandbox.dto.Shohin;
 import com.example.sandbox.service.ShohinService;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("default")
 @Slf4j
-public class ApplicationRunnerDemo implements ApplicationRunner {
+public class ApplicationRunnerDefault implements ApplicationRunner {
 
   private final ShohinService shohinService;
 
   @Autowired
-  public ApplicationRunnerDemo(ShohinService shohinService) {
+  public ApplicationRunnerDefault(ShohinService shohinService) {
     this.shohinService = shohinService;
   }
 
