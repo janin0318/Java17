@@ -22,8 +22,6 @@ repositories {
 }
 
 dependencies {
-	implementation 'com.github.oscar0812:pokeapi:1.0.0'
-
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
