@@ -1,0 +1,3 @@
+SET "フシギダネ" "bulbasaur"
+SET "フシギソウ" "ivysaur"
+SET "フシギバナ" "venusaur"
