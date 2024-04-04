@@ -1,5 +1,6 @@
 package jp.co.pokexample.controller;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,12 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class PokemonController {
+
+  private final StringRedisTemplate redisTemplate;
+
+  public PokemonController(StringRedisTemplate redisTemplate) {
+    this.redisTemplate = redisTemplate;
+  }
 
   @GetMapping("/{id}")
   public String getById(@PathVariable String id) {
