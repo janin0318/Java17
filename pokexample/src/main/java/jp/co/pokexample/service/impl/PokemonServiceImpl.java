@@ -24,8 +24,6 @@ public class PokemonServiceImpl implements PokemonService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    log.info(BASE_URL + "{}", id);
-
     ResponseEntity<String> baseResult = restTemplate.getForEntity(BASE_URL + id, String.class);
     ResponseEntity<String> speciesResult = restTemplate.getForEntity(SPECIES_URL + id,
         String.class);
@@ -47,6 +45,7 @@ public class PokemonServiceImpl implements PokemonService {
     try {
       speciesJsonNode = mapper.readTree(speciesResult.getBody());
     } catch (JsonProcessingException exception) {
+      log.warn("speciesJsonNodeでJsonProcessingExceptionが発生しました。");
       throw new RuntimeException(exception);
     }
 

@@ -6,12 +6,12 @@
   <style>
     h1{ font-size:18pt; font-weight:bold; color:gray; }
     body{ font-size:13pt; color:gray; margin:5px 25px; }
+    p { white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
 <body>
-<h1>Hello page</h1>
-<p>This is a Thymeleaf Page</p>
-<p class="msg" th:text="${pokemon.getBase().getName()}"></p>
+<h1 th:text="${pokemon.getSpecies().getNameJp()}"></h1>
+<p th:text="${pokemon.getSpecies().getFlavorText()}"></p>
 <img th:src="${pokemon.getBase().getOfficialArtwork()}"  th:alt="${pokemon.getBase().getName()}"/>
 </body>
 </html>
