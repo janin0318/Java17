@@ -7,20 +7,17 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PokemonSpecies {
-  private int id;
-  private String nameJp;
-  private String nameEn;
-  private String imagePath;
+  private final Integer id;
+  private final String name;
+  private final String nameJp;
 
   public PokemonSpecies(JsonNode jsonNode) {
+    this.id = null;
+    this.name = null;
     this.nameJp = createNameJp(jsonNode);
   }
 
   private String createNameJp(JsonNode jsonNode) {
-    return null;
-  }
-
-  private String createImagePath(JsonNode jsonNode) {
     return null;
   }
 }
