@@ -1,28 +1,23 @@
 package jp.co.pokexample.controller;
 
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.ResponseEntity;
+import jp.co.pokexample.entity.Pokemon;
+import jp.co.pokexample.service.PokemonService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class PokemonController {
 
-  private final StringRedisTemplate redisTemplate;
+  private final PokemonService pokemonService;
 
-  public PokemonController(StringRedisTemplate redisTemplate) {
-    this.redisTemplate = redisTemplate;
+  PokemonController(PokemonService pokemonService) {
+    this.pokemonService = pokemonService;
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/id/{id}")
   public String getById(@PathVariable String id) {
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<String> response = restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon-species/" + id, String.class);
-    String responseBody = response.getBody();
-
-    System.out.println(responseBody);
-    return null;
+    Pokemon pokemon = pokemonService.buildPokemon(id);
+    return pokemon.getBase().getName() + pokemon.getBase().getOfficialArtwork();
   }
 }
