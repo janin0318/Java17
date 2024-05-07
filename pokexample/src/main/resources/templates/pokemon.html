@@ -2,16 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
   <title>top page</title>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
   <style>
-    h1{ font-size:18pt; font-weight:bold; color:gray; }
-    body{ font-size:13pt; color:gray; margin:5px 25px; }
-    p { white-space: pre-wrap; word-wrap: break-word; }
+    h1 {
+      font-size: 18pt;
+      font-weight: bold;
+      color: gray;
+    }
+
+    body {
+      font-size: 13pt;
+      color: gray;
+      margin: 5px 25px;
+    }
+
+    p {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
   </style>
 </head>
 <body>
 <h1 th:text="${pokemon.getSpecies().getNameJp()}"></h1>
 <p th:text="${pokemon.getSpecies().getFlavorText()}"></p>
-<img th:src="${pokemon.getBase().getOfficialArtwork()}"  th:alt="${pokemon.getBase().getName()}"/>
+<img th:src="${pokemon.getOfficialArtwork()}" th:alt="${pokemon.getName()}"/>
 </body>
 </html>
