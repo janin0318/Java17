@@ -3,8 +3,11 @@ package jp.co.pokexample.entity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Objects;
+import jp.co.pokexample.exception.PokemonNotExistException;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +17,9 @@ import org.springframework.web.client.RestTemplate;
 @Getter
 @ToString
 public class PokemonBase {
+
+  // ポケモンが存在しない場合に使用する。
+  public static final PokemonBase NOT_FOUND = null;
 
   private static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -34,6 +40,10 @@ public class PokemonBase {
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> pokeApiResult = restTemplate.getForEntity(POKE_API_URL + pokemonId,
         String.class);
+
+    if (!Objects.equals(pokeApiResult.getStatusCode(), HttpStatus.OK)) {
+      throw new PokemonNotExistException();
+    }
 
     ObjectMapper mapper = new ObjectMapper();
 
