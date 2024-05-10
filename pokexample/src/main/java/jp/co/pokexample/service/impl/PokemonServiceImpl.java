@@ -14,7 +14,7 @@ public class PokemonServiceImpl implements PokemonService {
   @Override
   public PokemonBase buildPokemon(String id) {
     if (Objects.isNull(id) || id.isBlank()) {
-      throw new PokemonNotExistException();
+      throw new PokemonNotExistException("ポケモンが見つかりません。");
     }
     return PokemonBase.buildPokemonById(Integer.parseInt(id));
   }

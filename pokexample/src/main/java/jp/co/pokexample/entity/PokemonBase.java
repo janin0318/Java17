@@ -42,7 +42,7 @@ public class PokemonBase {
         String.class);
 
     if (!Objects.equals(pokeApiResult.getStatusCode(), HttpStatus.OK)) {
-      throw new PokemonNotExistException();
+      throw new PokemonNotExistException("ポケモンが見つかりません。");
     }
 
     ObjectMapper mapper = new ObjectMapper();
