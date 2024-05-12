@@ -19,11 +19,8 @@ public class PokemonSpecies {
   private final String nameJp;
   private final String flavorText;
 
-  PokemonSpecies(Integer pokemonId) {
-
-    RestTemplate restTemplate = new RestTemplate();
-
-    ResponseEntity<String> speciesResult = restTemplate.getForEntity(POKE_API_URL + pokemonId,
+  PokemonSpecies(RestTemplate template, Integer pokemonId) {
+    ResponseEntity<String> speciesResult = template.getForEntity(POKE_API_URL + pokemonId,
         String.class);
 
     ObjectMapper mapper = new ObjectMapper();

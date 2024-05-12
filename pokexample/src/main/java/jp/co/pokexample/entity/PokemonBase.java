@@ -17,10 +17,6 @@ import org.springframework.web.client.RestTemplate;
 @Getter
 @ToString
 public class PokemonBase {
-
-  // ポケモンが存在しない場合に使用する。
-  public static final PokemonBase NOT_FOUND = null;
-
   private static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon/";
 
   // ポケモン図鑑番号
@@ -32,13 +28,12 @@ public class PokemonBase {
   // ポケモンの種類
   private final PokemonSpecies species;
 
-  public static PokemonBase buildPokemonById(Integer pokemonId) {
-    return new PokemonBase(pokemonId);
+  public static PokemonBase buildPokemonById(RestTemplate template, Integer pokemonId) {
+    return new PokemonBase(template, pokemonId);
   }
 
-  private PokemonBase(Integer pokemonId) {
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<String> pokeApiResult = restTemplate.getForEntity(POKE_API_URL + pokemonId,
+  private PokemonBase(RestTemplate template, Integer pokemonId) {
+    ResponseEntity<String> pokeApiResult = template.getForEntity(POKE_API_URL + pokemonId,
         String.class);
 
     if (!Objects.equals(pokeApiResult.getStatusCode(), HttpStatus.OK)) {
@@ -58,7 +53,7 @@ public class PokemonBase {
     this.id = jsonNode.get("id").asInt();
     this.name = jsonNode.get("name").asText();
     this.officialArtwork = createOfficialArtwork(jsonNode);
-    this.species = new PokemonSpecies(pokemonId);
+    this.species = new PokemonSpecies(template, pokemonId);
   }
 
   private String createOfficialArtwork(JsonNode jsonNode) {
