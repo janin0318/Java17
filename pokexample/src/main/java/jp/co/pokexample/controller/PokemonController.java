@@ -1,28 +1,41 @@
 package jp.co.pokexample.controller;
 
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.ResponseEntity;
+import java.util.Objects;
+import jp.co.pokexample.entity.PokemonBase;
+import jp.co.pokexample.exception.PokemonNotExistException;
+import jp.co.pokexample.service.PokemonService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-@RestController
+@Controller
+@Log4j2
 public class PokemonController {
 
-  private final StringRedisTemplate redisTemplate;
+  private final PokemonService pokemonService;
 
-  public PokemonController(StringRedisTemplate redisTemplate) {
-    this.redisTemplate = redisTemplate;
+  PokemonController(PokemonService pokemonService) {
+    this.pokemonService = pokemonService;
   }
 
-  @GetMapping("/{id}")
-  public String getById(@PathVariable String id) {
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<String> response = restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon-species/" + id, String.class);
-    String responseBody = response.getBody();
+  @GetMapping("/id/{id}")
+  public String getById(@PathVariable("id") String id, Model model) {
+    PokemonBase pokemonBase = pokemonService.buildPokemon(id);
 
-    System.out.println(responseBody);
-    return null;
+    // 図鑑番号のポケモンが存在しない場合は、エラーページに飛ばす。
+    if (Objects.isNull(pokemonBase)) {
+        throw new PokemonNotExistException("ポケモンが見つかりません。");
+    }
+
+    model.addAttribute("pokemon", pokemonBase);
+    return "pokemon";
+  }
+
+  @ExceptionHandler(PokemonNotExistException.class)
+  public String pokemonNotExist() {
+    return "error";
   }
 }
