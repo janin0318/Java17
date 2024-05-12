@@ -27,7 +27,7 @@ public class PokemonController {
 
     // 図鑑番号のポケモンが存在しない場合は、エラーページに飛ばす。
     if (Objects.isNull(pokemonBase)) {
-      throw new PokemonNotExistException("ポケモンが見つかりません。");
+        throw new PokemonNotExistException("ポケモンが見つかりません。");
     }
 
     model.addAttribute("pokemon", pokemonBase);
