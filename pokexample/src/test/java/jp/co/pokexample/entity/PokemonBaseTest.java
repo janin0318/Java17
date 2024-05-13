@@ -1,7 +1,12 @@
 package jp.co.pokexample.entity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 import jp.co.pokexample.exception.PokemonNotExistException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +23,9 @@ class PokemonBaseTest {
   @Mock
   private RestTemplate restTemplate;
 
+  private static final String POKEMON_BASE_JSON = "src/test/java/jp/co/pokexample/entity/PokemonBase.json";
+  private static final String POKEMON_SPECIES_JSON = "src/test/java/jp/co/pokexample/entity/PokemonSpecies.json";
+
   @Test
   public void PokeApiの戻り値が200以外の場合() {
     ResponseEntity<String> responseEntity = new ResponseEntity<>("", HttpStatus.NOT_FOUND);
@@ -27,6 +35,27 @@ class PokemonBaseTest {
         () -> PokemonBase.buildPokemonById(restTemplate, 1));
   }
 
+  @Test
+  public void 正常系() throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
 
+    JsonNode pokemonBaseNode = mapper.readTree(new File(POKEMON_BASE_JSON));
+    ResponseEntity<String> pokemonBaseResult = new ResponseEntity<>(pokemonBaseNode.toString(),
+        HttpStatus.OK);
+    Mockito.when(restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon/1", String.class))
+        .thenReturn(pokemonBaseResult);
 
+    JsonNode pokemonSpeciesNode = mapper.readTree(new File(POKEMON_SPECIES_JSON));
+    ResponseEntity<String> pokemonSpecies = new ResponseEntity<>(pokemonSpeciesNode.toString(),
+        HttpStatus.OK);
+    Mockito.when(
+            restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon-species/1", String.class))
+        .thenReturn(pokemonSpecies);
+
+    PokemonBase result = PokemonBase.buildPokemonById(restTemplate, 1);
+
+    assertEquals(result.getId(), 1);
+    assertEquals(result.getName(), "bulbasaur");
+    assertEquals(result.getOfficialArtwork(), "front_default");
+  }
 }
