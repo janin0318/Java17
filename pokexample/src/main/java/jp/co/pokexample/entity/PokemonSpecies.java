@@ -18,6 +18,7 @@ public class PokemonSpecies {
   private final Integer id;
   private final String nameJp;
   private final String flavorText;
+  private final String flavorTextVersion;
 
   PokemonSpecies(RestTemplate template, Integer pokemonId) {
     ResponseEntity<String> speciesResult = template.getForEntity(POKE_API_URL + pokemonId,
@@ -36,6 +37,7 @@ public class PokemonSpecies {
     this.id = speciesJsonNode.get("id").asInt();
     this.nameJp = createNameJp(speciesJsonNode);
     this.flavorText = createFlavorText(speciesJsonNode);
+    this.flavorTextVersion = createFlavorTextVersion(speciesJsonNode);
   }
 
   /**
@@ -58,6 +60,11 @@ public class PokemonSpecies {
   private String createFlavorText(JsonNode jsonNode) {
     JsonNode flavorTextNode = getJaJsonNode(jsonNode.get("flavor_text_entries"));
     return flavorTextNode.get("flavor_text").asText();
+  }
+
+  private String createFlavorTextVersion(JsonNode jsonNode) {
+    JsonNode flavorTextNode = getJaJsonNode(jsonNode.get("flavor_text_entries"));
+    return flavorTextNode.get("version").get("name").asText();
   }
 
   /**

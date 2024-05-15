@@ -86,7 +86,8 @@ p {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
+  height: fit-content;
   border-radius: 10px;
   text-align: left;
 }
@@ -106,8 +107,10 @@ p {
 }
 
 .flavor-text {
+  text-align: center;
+  white-space: pre-wrap;
+  display: none;
   font-style: italic;
   color: #444;
-  white-space: pre-wrap;
   line-height: 1.5;
 }
