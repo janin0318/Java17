@@ -1,7 +1,6 @@
 package jp.co.pokexample.controller;
 
-import java.util.Objects;
-import jp.co.pokexample.entity.PokemonBase;
+import jp.co.pokexample.entity.Pokemon;
 import jp.co.pokexample.exception.PokemonNotExistException;
 import jp.co.pokexample.service.PokemonService;
 import lombok.extern.log4j.Log4j2;
@@ -23,14 +22,8 @@ public class PokemonController {
 
   @GetMapping("/id/{id}")
   public String getById(@PathVariable("id") String id, Model model) {
-    PokemonBase pokemonBase = pokemonService.buildPokemon(id);
-
-    // 図鑑番号のポケモンが存在しない場合は、エラーページに飛ばす。
-    if (Objects.isNull(pokemonBase)) {
-        throw new PokemonNotExistException("ポケモンが見つかりません。");
-    }
-
-    model.addAttribute("pokemon", pokemonBase);
+    Pokemon pokemon = pokemonService.buildPokemon(id);
+    model.addAttribute("pokemon", pokemon);
     return "pokemon";
   }
 

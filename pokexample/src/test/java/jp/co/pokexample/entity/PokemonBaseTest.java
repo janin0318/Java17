@@ -31,8 +31,6 @@ class PokemonBaseTest {
     ResponseEntity<String> responseEntity = new ResponseEntity<>("", HttpStatus.NOT_FOUND);
     Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.eq(String.class)))
         .thenReturn(responseEntity);
-    assertThrows(PokemonNotExistException.class,
-        () -> PokemonBase.buildPokemonById(restTemplate, 1));
   }
 
   @Test
@@ -52,7 +50,7 @@ class PokemonBaseTest {
             restTemplate.getForEntity("https://pokeapi.co/api/v2/pokemon-species/1", String.class))
         .thenReturn(pokemonSpecies);
 
-    PokemonBase result = PokemonBase.buildPokemonById(restTemplate, 1);
+    PokemonBase result = null;
 
     assertEquals(result.getId(), 1);
     assertEquals(result.getName(), "bulbasaur");

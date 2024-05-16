@@ -12,7 +12,7 @@
 </header>
 <main>
   <div class="pokedex-entry">
-    <img th:src="${pokemon.getOfficialArtwork()}" th:alt="${pokemon.getName()}">
+    <img th:src="${pokemon.getBase().getOfficialArtwork()}" th:alt="${pokemon.getBase().getName()}">
     <h2 th:text="${pokemon.getSpecies().getNameJp()}">ピカチュウ</h2>
     <p>でんきタイプのポケモン。</p>
     <button class="modal-button" data-flavor="flavor1" th:text="${pokemon.getSpecies().getFlavorTextVersion()} + の図鑑説明">図鑑説明</button>

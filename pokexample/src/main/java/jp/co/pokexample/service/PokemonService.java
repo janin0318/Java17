@@ -1,8 +1,8 @@
 package jp.co.pokexample.service;
 
-import jp.co.pokexample.entity.PokemonBase;
+import jp.co.pokexample.entity.Pokemon;
 
 public interface PokemonService {
 
-  PokemonBase buildPokemon(String id);
+  Pokemon buildPokemon(String id);
 }

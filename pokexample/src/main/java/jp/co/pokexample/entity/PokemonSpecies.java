@@ -13,31 +13,18 @@ import org.springframework.web.client.RestTemplate;
 @ToString
 public class PokemonSpecies {
 
-  private static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon-species/";
+  public static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon-species/";
 
   private final Integer id;
   private final String nameJp;
   private final String flavorText;
   private final String flavorTextVersion;
 
-  PokemonSpecies(RestTemplate template, Integer pokemonId) {
-    ResponseEntity<String> speciesResult = template.getForEntity(POKE_API_URL + pokemonId,
-        String.class);
-
-    ObjectMapper mapper = new ObjectMapper();
-
-    JsonNode speciesJsonNode;
-
-    try {
-      speciesJsonNode = mapper.readTree(speciesResult.getBody());
-    } catch (JsonProcessingException exception) {
-      throw new RuntimeException(exception);
-    }
-
-    this.id = speciesJsonNode.get("id").asInt();
-    this.nameJp = createNameJp(speciesJsonNode);
-    this.flavorText = createFlavorText(speciesJsonNode);
-    this.flavorTextVersion = createFlavorTextVersion(speciesJsonNode);
+  public PokemonSpecies(JsonNode jsonNode) {
+    this.id = jsonNode.get("id").asInt();
+    this.nameJp = createNameJp(jsonNode);
+    this.flavorText = createFlavorText(jsonNode);
+    this.flavorTextVersion = createFlavorTextVersion(jsonNode);
   }
 
   /**

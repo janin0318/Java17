@@ -1,30 +1,32 @@
 package jp.co.pokexample.service.impl;
 
-import java.util.Objects;
+import com.fasterxml.jackson.databind.JsonNode;
+import jp.co.pokexample.entity.Pokemon;
 import jp.co.pokexample.entity.PokemonBase;
-import jp.co.pokexample.exception.PokemonNotExistException;
+import jp.co.pokexample.entity.PokemonSpecies;
+import jp.co.pokexample.service.PokeApiService;
 import jp.co.pokexample.service.PokemonService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @Log4j2
 public class PokemonServiceImpl implements PokemonService {
 
-  private final RestTemplate restTemplate;
+  private final PokeApiService pokeApiService;
 
-  public PokemonServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-    this.restTemplate = restTemplateBuilder.build();
+  public PokemonServiceImpl(PokeApiService pokeApiService) {
+    this.pokeApiService = pokeApiService;
   }
 
   @Override
-  public PokemonBase buildPokemon(String id) {
-    if (Objects.isNull(id) || id.isBlank()) {
-      throw new PokemonNotExistException("ポケモンが見つかりません。");
-    }
+  public Pokemon buildPokemon(String id) {
+    JsonNode speciesJsonNode = pokeApiService.doApi(id, PokemonSpecies.POKE_API_URL);
+    PokemonSpecies species = new PokemonSpecies(speciesJsonNode);
 
-    return PokemonBase.buildPokemonById(restTemplate, Integer.parseInt(id));
+    JsonNode baseJsonNode = pokeApiService.doApi(id, PokemonBase.URL);
+    PokemonBase base = new PokemonBase(baseJsonNode);
+
+    return new Pokemon(base, species);
   }
 }
