@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Log4j2
@@ -25,6 +27,11 @@ public class PokemonController {
     Pokemon pokemon = pokemonService.buildPokemon(id);
     model.addAttribute("pokemon", pokemon);
     return "pokemon";
+  }
+
+  @GetMapping("/search")
+  public String search(@RequestParam String id) {
+    return "redirect:/id/" + id;
   }
 
   @ExceptionHandler(PokemonNotExistException.class)

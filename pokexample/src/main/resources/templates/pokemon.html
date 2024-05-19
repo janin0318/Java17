@@ -11,6 +11,11 @@
   <h1>ポケモン図鑑</h1>
 </header>
 <main>
+  <form action="/search" method="get">
+    <input type="text" id="search" name="id" placeholder="図鑑番号でポケモンを検索">
+    <button class="search-button" type="submit">検索</button>
+  </form>
+  <br>
   <div class="pokedex-entry">
     <img th:src="${pokemon.getBase().getOfficialArtwork()}" th:alt="${pokemon.getBase().getName()}">
     <h2 th:text="${pokemon.getSpecies().getNameJp()}">ピカチュウ</h2>

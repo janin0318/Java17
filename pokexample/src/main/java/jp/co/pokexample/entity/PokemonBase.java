@@ -19,13 +19,13 @@ public class PokemonBase {
   // 公式画像（フロント）
   private final String officialArtwork;
 
-  public PokemonBase(JsonNode jsonNode) {
+  public PokemonBase(final JsonNode jsonNode) {
     this.id = jsonNode.get("id").asInt();
     this.name = jsonNode.get("name").asText();
     this.officialArtwork = createOfficialArtwork(jsonNode);
   }
 
-  private String createOfficialArtwork(JsonNode jsonNode) {
+  private String createOfficialArtwork(final JsonNode jsonNode) {
     return jsonNode.get("sprites").get("other").get("official-artwork").get("front_default")
         .asText();
   }

@@ -20,7 +20,7 @@ public class PokemonSpecies {
   private final String flavorText;
   private final String flavorTextVersion;
 
-  public PokemonSpecies(JsonNode jsonNode) {
+  public PokemonSpecies(final JsonNode jsonNode) {
     this.id = jsonNode.get("id").asInt();
     this.nameJp = createNameJp(jsonNode);
     this.flavorText = createFlavorText(jsonNode);
@@ -33,7 +33,7 @@ public class PokemonSpecies {
    * @param jsonNode pokemon-speciesの実施結果
    * @return 日本語名
    */
-  private String createNameJp(JsonNode jsonNode) {
+  private String createNameJp(final JsonNode jsonNode) {
     JsonNode nameNode = getJaJsonNode(jsonNode.get("names"));
     return nameNode.get("name").asText();
   }
@@ -44,12 +44,12 @@ public class PokemonSpecies {
    * @param jsonNode pokemon-speciesの実施結果
    * @return フレーバーテキスト
    */
-  private String createFlavorText(JsonNode jsonNode) {
+  private String createFlavorText(final JsonNode jsonNode) {
     JsonNode flavorTextNode = getJaJsonNode(jsonNode.get("flavor_text_entries"));
     return flavorTextNode.get("flavor_text").asText();
   }
 
-  private String createFlavorTextVersion(JsonNode jsonNode) {
+  private String createFlavorTextVersion(final JsonNode jsonNode) {
     JsonNode flavorTextNode = getJaJsonNode(jsonNode.get("flavor_text_entries"));
     return flavorTextNode.get("version").get("name").asText();
   }
@@ -60,7 +60,7 @@ public class PokemonSpecies {
    * @param jsonNode 日本語を取得したい大分類
    * @return 日本語のJsonNode
    */
-  private JsonNode getJaJsonNode(JsonNode jsonNode) {
+  private JsonNode getJaJsonNode(final JsonNode jsonNode) {
     for (int i = 0; i < jsonNode.size(); i++) {
       String lang = jsonNode.get(i).get("language").get("name").asText();
       if (Objects.equals(lang, "ja-Hrkt")) {

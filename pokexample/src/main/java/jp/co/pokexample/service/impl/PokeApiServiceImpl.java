@@ -24,14 +24,14 @@ public class PokeApiServiceImpl implements PokeApiService {
   }
 
   @Override
-  public JsonNode doApi(Object param, String URL) {
+  public JsonNode doApi(final Object param, final String URL) {
     ResponseEntity<String> pokeApiResult = restTemplate.getForEntity(URL + param, String.class);
 
     if (!Objects.equals(pokeApiResult.getStatusCode(), HttpStatus.OK)) {
       throw new PokemonNotExistException("Failed to call Poke API");
     }
 
-    JsonNode result = null;
+    JsonNode result;
     try {
       result = objectMapper.readTree(pokeApiResult.getBody());
     } catch (JacksonException e) {
