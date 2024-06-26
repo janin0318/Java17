@@ -2,23 +2,34 @@ package mrs.template_method;
 
 public abstract class CaffeineBeverage {
 
-  public void prepareRecipe() {
+  // サブクラスで使用できないようにfinalクラスとする
+  final public void prepareRecipe() {
     boilWater();
     brew();
     pourInCup();
-    addCondiments();
-  };
+    // 具象クラスのcustomerWantsCondimentsがTrueの場合のみaddCondimentsを呼び出す。
+    if (customerWantsCondiments()) {
+      addCondiments();
+    }
+  }
 
-  public void boilWater() {
+  ;
+
+  void boilWater() {
     System.out.println("お湯をわかす");
   }
 
-  public void pourInCup() {
+  void pourInCup() {
     System.out.println("カップに注ぐ");
   }
 
-  public abstract void brew();
+  abstract void brew();
 
-  public abstract void addCondiments();
+  abstract void addCondiments();
+
+  // hook
+  boolean customerWantsCondiments() {
+    return true;
+  }
 
 }
