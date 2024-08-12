@@ -1,5 +1,8 @@
 package mrs.state;
 
+/**
+ * 25セント未投入ステータス
+ */
 public class NoQuarterState implements State {
 
   GumBallMachine gumBallMachine;
@@ -11,6 +14,7 @@ public class NoQuarterState implements State {
   @Override
   public void insertQuarter() {
     System.out.println("25セントを投入しました。");
+    gumBallMachine.setState(gumBallMachine.getHasQuarterState());
   }
 
   @Override

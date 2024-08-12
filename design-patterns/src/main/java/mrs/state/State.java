@@ -10,4 +10,8 @@ public interface State {
 
   void dispense();
 
+  default void  refill() {
+    throw new RuntimeException();
+  };
+
 }
