@@ -1,37 +1,36 @@
 package atcoder.abc366;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class C {
-
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
+    int q = Integer.parseInt(sc.next());
 
-    int n = sc.nextInt();
+    Map<Integer, Integer> mp = new HashMap<>();
 
-    List<String> list = new ArrayList<>();
+    for (int i = 0; i < q; i++) {
 
-    for (int i = 0; i <= n; i++) {
-      String str = sc.nextLine();
+      int query = Integer.parseInt(sc.next());
 
-      String[] ss = str.split(" ");
-
-      if (Objects.equals(ss[0], "1")) {
-        list.add(ss[1]);
+      if (query == 1) {
+        int num = Integer.parseInt(sc.next());
+        mp.put(num, mp.getOrDefault(num, 0) + 1);
       }
 
-      if (Objects.equals(ss[0], "2")) {
-        list.remove(ss[1]);
+      if (query == 2) {
+        int num = Integer.parseInt(sc.next());
+        mp.put(num, mp.get(num) - 1);
+        if (mp.get(num) == 0) {
+          mp.remove(num);
+        }
       }
 
-      if (Objects.equals(ss[0], "3")) {
-        List<String> result = list.stream().distinct().toList();
-        System.out.println(result.size());
+      if (query == 3) {
+        System.out.println(mp.size());
       }
     }
   }
-
 }
